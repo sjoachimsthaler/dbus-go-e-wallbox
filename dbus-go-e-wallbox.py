@@ -163,9 +163,16 @@ class DbusGoEWallboxService:
             car_state = int(data.get('car', 1))
             logging.debug("car state: %d", car_state)
 
-            # cdi.value = charging time in milliseconds (session duration)
-            cdi_value = int(data.get('cdi', {}).get('value', 0))
-            if car_state in (2, 3, 4):
+            cdi = data.get('cdi', {})
+            cdi_type = int(cdi.get('type', 0))
+            cdi_value = int(cdi.get('value', 0))
+            rbt = int(data.get('rbt', 0))
+
+            if car_state == 2 or car_state == 3:
+                # Active: cdi.value is a timestamp (type 0), elapsed = rbt - cdi.value
+                session_time_s = max(0, rbt - cdi_value) // 1000
+            elif car_state == 4:
+                # Completed: cdi.value is total charging time in ms (type 1)
                 session_time_s = cdi_value // 1000
             else:
                 session_time_s = 0
