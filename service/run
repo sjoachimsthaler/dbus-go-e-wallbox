@@ -1,0 +1,3 @@
+#!/bin/sh
+exec 2>&1
+python /data/dbus-go-e/dbus-go-e-wallbox.py
