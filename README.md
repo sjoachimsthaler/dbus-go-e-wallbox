@@ -40,7 +40,7 @@ Copy the files from this repository to `/data/dbus-go-e` on your VenusOS device,
 
 ```bash
 cd /data
-git clone https://github.com/USERNAME/dbus-go-e-charger.git dbus-go-e
+git clone https://github.com/sjoachimsthaler/dbus-go-e-wallbox.git dbus-go-e
 chmod a+x /data/dbus-go-e/install.sh
 /data/dbus-go-e/install.sh
 ```
