@@ -107,10 +107,7 @@ class DbusGoEWallboxService:
         try:
             config = self._getConfig()
 
-            # Fetch the data we need (nrg for phase data, eto for total energy,
-            # se for session energy, carconn for connected state,
-            # current for actual charging current)
-            url = "http://{host}/api/status?filter=nrg,eto,se,carconn,current".format(
+            url = "http://{host}/api/status?filter=nrg,eto,wh,car,cdi".format(
                 host=config['ONPREMISE']['Host'])
             response = requests.get(url, timeout=5)
 
@@ -147,25 +144,22 @@ class DbusGoEWallboxService:
             total_energy_wh = float(data.get('eto', 0))
 
             # Session energy in Wh
-            session_energy_wh = float(data.get('se', 0))
+            session_energy_wh = float(data.get('wh', 0))
 
-            # Connected state (carconn: 0=no, 1=yes)
-            car_connected = int(data.get('carconn', 0))
+            # Car state: 1=idle/no car, 2=EV present, 3=charging, 4=complete
+            car_state = int(data.get('car', 1))
 
-            # Actual charging current (amps)
-            charging_current = float(data.get('current', 0))
+            # Session duration in seconds (cdi.value is milliseconds, only valid while charging)
+            cdi = data.get('cdi', {})
+            session_time_s = int(cdi.get('value', 0)) // 1000
 
-            # Charging status mapping:
-            # 0=disconnected, 1=connected, 2=charging, 4=waiting for sun
-            # 5=waiting for RFID, 6=waiting for start
-            status = 0
-            if car_connected == 1:
-                if charging_current > 0 or total_power > 0:
-                    status = 2  # charging
-                else:
-                    status = 1  # connected but not charging
-            else:
-                status = 0  # disconnected
+            # Actual charging current from phase sum (nrg already fetched)
+            charging_current = total_current
+
+            # Victron status: 0=disconnected, 1=connected, 2=charging, 3=charged
+            _car_to_status = {1: 0, 2: 1, 3: 2, 4: 3}
+            status = _car_to_status.get(car_state, 0)
+            car_connected = 0 if car_state == 1 else 1
 
             # Publish to D-Bus
             # Per-phase electrical data
@@ -194,7 +188,7 @@ class DbusGoEWallboxService:
             self._dbusservice['/Status'] = status
             self._dbusservice['/Current'] = charging_current
             self._dbusservice['/Session/Energy'] = session_energy_wh / 1000.0
-            self._dbusservice['/Session/Time'] = 0  # Not available from go-eCharger API v2
+            self._dbusservice['/Session/Time'] = session_time_s
 
             self._lastUpdate = time.time()
 
