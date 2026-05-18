@@ -69,6 +69,7 @@ wget -qO /tmp/dbus-go-e.tar.gz https://github.com/sjoachimsthaler/dbus-go-e-wall
 tar -xzf /tmp/dbus-go-e.tar.gz -C /tmp
 cp /tmp/dbus-go-e-wallbox-main/*.py /data/dbus-go-e/
 cp /tmp/dbus-go-e-wallbox-main/*.sh /data/dbus-go-e/
+chmod a+x /data/dbus-go-e/*.sh
 svc -t /service/dbus-go-e
 ```
 
