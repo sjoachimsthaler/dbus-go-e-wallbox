@@ -213,9 +213,7 @@ class DbusGoEWallboxService:
         except Exception as exc:
             logging.critical("Unexpected error: %s", exc, exc_info=exc)
 
-        # Notify Victron that values might have changed
-        self._dbusservice['/UpdateIndex'] = (
-            (self._dbusservice.get('/UpdateIndex', 0) + 1) % 256)
+        self._dbusservice['/UpdateIndex'] = (self._dbusservice['/UpdateIndex'] + 1) % 256
         return True
 
     @staticmethod
