@@ -163,10 +163,12 @@ class DbusGoEWallboxService:
             car_state = int(data.get('car', 1))
             logging.debug("car state: %d", car_state)
 
-            # cdi.value is session start timestamp (ms since boot); rbt is current uptime (ms)
-            cdi = data.get('cdi', {})
-            rbt = int(data.get('rbt', 0))
-            session_time_s = max(0, rbt - int(cdi.get('value', rbt))) // 1000
+            # cdi.value = charging time in milliseconds (session duration)
+            cdi_value = int(data.get('cdi', {}).get('value', 0))
+            if car_state in (2, 3, 4):
+                session_time_s = cdi_value // 1000
+            else:
+                session_time_s = 0
 
             # Per-phase current (max of active phases), not sum
             charging_current = max(current_l1, current_l2, current_l3)
