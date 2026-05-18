@@ -107,7 +107,7 @@ class DbusGoEWallboxService:
         try:
             config = self._getConfig()
 
-            url = "http://{host}/api/status?filter=nrg,eto,wh,car,cdi".format(
+            url = "http://{host}/api/status?filter=nrg,eto,wh,car,cdi,rbt".format(
                 host=config['ONPREMISE']['Host'])
             response = requests.get(url, timeout=5)
 
@@ -123,18 +123,18 @@ class DbusGoEWallboxService:
             # nrg is either an object {U, I, P} (newer Gemini firmware)
             # or a 20-element array [V_L1..V_N, A_L1..A_N, W_L1..W_total, ...] (classic API)
             if isinstance(nrg, list):
-                # [0-3]: V L1/L2/L3/N, [4-7]: A L1/L2/L3/N, [8-11]: W L1/L2/L3/N,
-                # [12-14]: VA L1/L2/L3, [15]: W total — all in real units
+                # [0-3]: V L1/L2/L3/N, [4-6]: A L1/L2/L3, [7-10]: W L1/L2/L3/N,
+                # [11]: W total, [12-15]: PF L1/L2/L3/total — all in real units
                 voltage_l1 = float(nrg[0]) if len(nrg) > 0 else 0
                 voltage_l2 = float(nrg[1]) if len(nrg) > 1 else 0
                 voltage_l3 = float(nrg[2]) if len(nrg) > 2 else 0
                 current_l1 = float(nrg[4]) if len(nrg) > 4 else 0
                 current_l2 = float(nrg[5]) if len(nrg) > 5 else 0
                 current_l3 = float(nrg[6]) if len(nrg) > 6 else 0
-                power_l1 = abs(float(nrg[8])) if len(nrg) > 8 else 0
-                power_l2 = abs(float(nrg[9])) if len(nrg) > 9 else 0
-                power_l3 = abs(float(nrg[10])) if len(nrg) > 10 else 0
-                total_power = abs(float(nrg[15])) if len(nrg) > 15 else 0
+                power_l1 = abs(float(nrg[7])) if len(nrg) > 7 else 0
+                power_l2 = abs(float(nrg[8])) if len(nrg) > 8 else 0
+                power_l3 = abs(float(nrg[9])) if len(nrg) > 9 else 0
+                total_power = abs(float(nrg[11])) if len(nrg) > 11 else 0
             else:
                 u = nrg.get('U', [0, 0, 0, 0])
                 voltage_l1 = float(u[0]) if len(u) > 0 else 0
@@ -163,10 +163,13 @@ class DbusGoEWallboxService:
             car_state = int(data.get('car', 1))
             logging.debug("car state: %d", car_state)
 
+            # cdi.value is session start timestamp (ms since boot); rbt is current uptime (ms)
             cdi = data.get('cdi', {})
-            session_time_s = int(cdi.get('value', 0)) // 1000
+            rbt = int(data.get('rbt', 0))
+            session_time_s = max(0, rbt - int(cdi.get('value', rbt))) // 1000
 
-            charging_current = total_current
+            # Per-phase current (max of active phases), not sum
+            charging_current = max(current_l1, current_l2, current_l3)
 
             # Victron status: 0=disconnected, 1=connected, 2=charging, 3=charged
             _car_to_status = {1: 0, 2: 2, 3: 1, 4: 3}
