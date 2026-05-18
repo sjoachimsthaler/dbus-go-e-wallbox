@@ -36,11 +36,12 @@ That's it 😄
 ## Install & Configuration
 
 ### Get the code
-Copy the files from this repository to `/data/dbus-go-e` on your VenusOS device, then run the install script.
+Download and extract the repository to `/data/dbus-go-e` on your VenusOS device, then run the install script.
 
 ```bash
-cd /data
-git clone https://github.com/sjoachimsthaler/dbus-go-e-wallbox.git dbus-go-e
+wget -qO /tmp/dbus-go-e.tar.gz https://github.com/sjoachimsthaler/dbus-go-e-wallbox/archive/refs/heads/main.tar.gz
+tar -xzf /tmp/dbus-go-e.tar.gz -C /data
+mv /data/dbus-go-e-wallbox-main /data/dbus-go-e
 chmod a+x /data/dbus-go-e/install.sh
 /data/dbus-go-e/install.sh
 ```
