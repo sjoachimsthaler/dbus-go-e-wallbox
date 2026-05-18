@@ -118,27 +118,40 @@ class DbusGoEWallboxService:
 
             data = response.json()
             nrg = data.get('nrg', {})
+            logging.debug("nrg raw: %s", nrg)
 
-            # Voltages (index 0=L1, 1=L2, 2=L3, 3=N)
-            u = nrg.get('U', [0, 0, 0, 0])
-            voltage_l1 = float(u[0]) if len(u) > 0 else 0
-            voltage_l2 = float(u[1]) if len(u) > 1 else 0
-            voltage_l3 = float(u[2]) if len(u) > 2 else 0
+            # nrg is either an object {U, I, P} (newer Gemini firmware)
+            # or a 20-element array [V_L1..V_N, A_L1..A_N, W_L1..W_total, ...] (classic API)
+            if isinstance(nrg, list):
+                # [0-3]: V L1/L2/L3/N, [4-7]: A L1/L2/L3/N, [8-11]: W L1/L2/L3/N,
+                # [12-14]: VA L1/L2/L3, [15]: W total — all in real units
+                voltage_l1 = float(nrg[0]) if len(nrg) > 0 else 0
+                voltage_l2 = float(nrg[1]) if len(nrg) > 1 else 0
+                voltage_l3 = float(nrg[2]) if len(nrg) > 2 else 0
+                current_l1 = float(nrg[4]) if len(nrg) > 4 else 0
+                current_l2 = float(nrg[5]) if len(nrg) > 5 else 0
+                current_l3 = float(nrg[6]) if len(nrg) > 6 else 0
+                power_l1 = abs(float(nrg[8])) if len(nrg) > 8 else 0
+                power_l2 = abs(float(nrg[9])) if len(nrg) > 9 else 0
+                power_l3 = abs(float(nrg[10])) if len(nrg) > 10 else 0
+                total_power = abs(float(nrg[15])) if len(nrg) > 15 else 0
+            else:
+                u = nrg.get('U', [0, 0, 0, 0])
+                voltage_l1 = float(u[0]) if len(u) > 0 else 0
+                voltage_l2 = float(u[1]) if len(u) > 1 else 0
+                voltage_l3 = float(u[2]) if len(u) > 2 else 0
+                i = nrg.get('I', [0, 0, 0])
+                current_l1 = float(i[0]) if len(i) > 0 else 0
+                current_l2 = float(i[1]) if len(i) > 1 else 0
+                current_l3 = float(i[2]) if len(i) > 2 else 0
+                p = nrg.get('P', [0, 0, 0, 0, 0])
+                power_l1 = abs(float(p[0])) if len(p) > 0 else 0
+                power_l2 = abs(float(p[1])) if len(p) > 1 else 0
+                power_l3 = abs(float(p[2])) if len(p) > 2 else 0
+                total_power = abs(float(p[4])) if len(p) > 4 else 0
+
             average_voltage = (voltage_l1 + voltage_l2 + voltage_l3) / 3.0
-
-            # Currents (index 0=L1, 1=L2, 2=L3)
-            i = nrg.get('I', [0, 0, 0])
-            current_l1 = float(i[0]) if len(i) > 0 else 0
-            current_l2 = float(i[1]) if len(i) > 1 else 0
-            current_l3 = float(i[2]) if len(i) > 2 else 0
             total_current = current_l1 + current_l2 + current_l3
-
-            # Powers (index 0=L1, 1=L2, 2=L3, 3=N, 4=Total)
-            p = nrg.get('P', [0, 0, 0, 0, 0])
-            power_l1 = abs(float(p[0])) if len(p) > 0 else 0
-            power_l2 = abs(float(p[1])) if len(p) > 1 else 0
-            power_l3 = abs(float(p[2])) if len(p) > 2 else 0
-            total_power = abs(float(p[4])) if len(p) > 4 else 0
 
             # Total energy in Wh across the lifetime of the device
             total_energy_wh = float(data.get('eto', 0))
@@ -146,18 +159,17 @@ class DbusGoEWallboxService:
             # Session energy in Wh
             session_energy_wh = float(data.get('wh', 0))
 
-            # Car state: 1=idle/no car, 2=EV present, 3=charging, 4=complete
+            # car: 1=idle/no car, 2=charging, 3=waitcar (connected/paused), 4=complete
             car_state = int(data.get('car', 1))
+            logging.debug("car state: %d", car_state)
 
-            # Session duration in seconds (cdi.value is milliseconds, only valid while charging)
             cdi = data.get('cdi', {})
             session_time_s = int(cdi.get('value', 0)) // 1000
 
-            # Actual charging current from phase sum (nrg already fetched)
             charging_current = total_current
 
             # Victron status: 0=disconnected, 1=connected, 2=charging, 3=charged
-            _car_to_status = {1: 0, 2: 1, 3: 2, 4: 3}
+            _car_to_status = {1: 0, 2: 2, 3: 1, 4: 3}
             status = _car_to_status.get(car_state, 0)
             car_connected = 0 if car_state == 1 else 1
 
