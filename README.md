@@ -60,6 +60,20 @@ Edit `/data/dbus-go-e/config.ini` – most importantly the `Host` value in the `
 
 > ℹ️ Why `evcharger` role? See [docs/roles.md](docs/roles.md) for an explanation of all available roles and why `evcharger` is the correct choice.
 
+## Update
+
+Download the latest version and overwrite the existing files, then restart the service. Your `config.ini` is preserved.
+
+```bash
+wget -qO /tmp/dbus-go-e.tar.gz https://github.com/sjoachimsthaler/dbus-go-e-wallbox/archive/refs/heads/main.tar.gz
+tar -xzf /tmp/dbus-go-e.tar.gz -C /tmp
+cp /tmp/dbus-go-e-wallbox-main/*.py /data/dbus-go-e/
+cp /tmp/dbus-go-e-wallbox-main/*.sh /data/dbus-go-e/
+svc -t /service/dbus-go-e
+```
+
+The last command sends a TERM signal to the supervised service, which causes it to restart automatically.
+
 ## Used documentation
 - https://github.com/victronenergy/venus/wiki/dbus#evcharger - D-Bus paths for the Victron namespace EV Charger
 - https://github.com/victronenergy/venus/wiki/dbus-api - D-Bus API from Victron

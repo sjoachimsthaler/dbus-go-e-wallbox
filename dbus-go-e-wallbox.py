@@ -84,7 +84,7 @@ class DbusGoEWallboxService:
         config = self._getConfig()
         try:
             url = "http://{host}/api/status?filter=var".format(
-                host=config['DEFAULT']['Host'])
+                host=config['ONPREMISE']['Host'])
             response = requests.get(url, timeout=5)
             if response.ok:
                 data = response.json()
@@ -111,7 +111,7 @@ class DbusGoEWallboxService:
             # se for session energy, carconn for connected state,
             # current for actual charging current)
             url = "http://{host}/api/status?filter=nrg,eto,se,carconn,current".format(
-                host=config['DEFAULT']['Host'])
+                host=config['ONPREMISE']['Host'])
             response = requests.get(url, timeout=5)
 
             if not response.ok:
@@ -274,8 +274,7 @@ def main():
                 '/Ac/L3/Power':        {'initial': 0, 'textformat': _w},
 
                 # EV charger specific paths (Victron evcharger spec)
-                '/Connected':          {'initial': 0, 'textformat': lambda p, v: 'connected' if v == 1 else 'disconnected'},
-                '/Status':             {'initial': 0, 'textformat': lambda p, v: ['disconnected', 'connected', 'charging', 'charged', 'waiting for sun']['charging' if v == 2 else 'connected' if v == 1 else 'disconnected']},
+                '/Status':             {'initial': 0, 'textformat': lambda p, v: ['disconnected', 'connected', 'charging'][min(v, 2)]},
                 '/Current':            {'initial': 0, 'textformat': _a},
                 '/Session/Energy':     {'initial': 0, 'textformat': _kwh},
                 '/Session/Time':       {'initial': 0, 'textformat': _s},
