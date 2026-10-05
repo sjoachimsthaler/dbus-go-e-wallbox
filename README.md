@@ -81,5 +81,28 @@ The last command sends a TERM signal to the supervised service, which causes it 
 - https://github.com/goecharger/go-eCharger-API-v2 - go-eCharger REST API v2 documentation
 - https://www.victronenergy.com/live/ccgx:root_access - How to get root access on GX device / Venus OS
 
+## Running tests locally
+
+No Venus OS device needed — `vedbus` is mocked via `tests/conftest.py`.
+
+```bash
+uv sync --group dev
+uv run pytest tests/ -v
+```
+
+The tests use real API response fixtures from the repository root:
+- `api-charging.json` — actively charging (list-style `nrg` + `cdi`)
+- `api-completed.json` — completed session (list-style `nrg` + `cdi`)
+- `api.json` — three phases charging (list-style `nrg`); dict-style `nrg` is covered by an inline payload in the tests
+
+You can also run a single test class or file:
+
+```bash
+python -m pytest tests/test_dbus_go_e_wallbox.py::TestChargingScenario -v
+python -m pytest tests/ -k "charging" -v
+```
+
+A GitHub Action runs the tests on every push and pull request to `main`.
+
 ## License
 This project is licensed under the GNU General Public License v3.0.

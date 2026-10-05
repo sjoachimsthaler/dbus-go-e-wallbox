@@ -1,0 +1,507 @@
+{
+    "alw": false,
+    "acu": null,
+    "cll": {
+        "adapterCurrentLimit": 16,
+        "cableCurrentLimit": 20,
+        "currentLimitMax": 16,
+        "requestedCurrent": 6,
+        "temperatureCurrentLimit": 32,
+        "unsymetryCurrentLimit": 32
+    },
+    "adi": false,
+    "dwo": null,
+    "tpa": 3596.627686,
+    "sse": "000000",
+    "eto": 2342073,
+    "wifis": [],
+    "scan": [],
+    "lwf": null,
+    "scaa": 231478,
+    "wst": 3,
+    "wsc": 0,
+    "wsl": null,
+    "wsms": 3,
+    "ccw": {
+        "ssid": "myrouter",
+        "encryptionType": 3,
+        "pairwiseCipher": 4,
+        "groupCipher": 4,
+        "b": true,
+        "g": true,
+        "n": true,
+        "lr": false,
+        "wps": false,
+        "ftmResponder": false,
+        "ftmInitiator": false,
+        "channel": 11,
+        "bssid": "AA:BB:CC:DD:EE:FF",
+        "ip": "192.168.1.xx",
+        "netmask": "255.255.255.0",
+        "gw": "192.168.1.xx",
+        "ipv6": [
+            "FE80::XXXX:XXXX:XXXX:XXXX",
+            "FD4A:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX"
+        ]
+    },
+    "wfb": null,
+    "wcb": "AA:BB:CC:DD:EE:FF",
+    "wpb": [
+        "AA:BB:CC:DD:EE:FF",
+        "AA:BB:CC:DD:EE:FF",
+        "AA:BB:CC:DD:EE:FF"
+    ],
+    "nif": "st",
+    "dns": {
+        "dns0": "192.168.1.xx",
+        "dns1": "0.0.0.0",
+        "dns2": "0.0.0.0"
+    },
+    "wbw": 1,
+    "rssi": -56,
+    "wda": true,
+    "tse": false,
+    "tsss": 0,
+    "tof": 60,
+    "tds": 1,
+    "tzt": "",
+    "utc": "2026-05-18T12:26:19.232",
+    "loc": "2026-05-18T14:26:19.233 +02:00",
+    "tab": 1779022293937,
+    "lto": 7200000,
+    "lbr": 255,
+    "lmo": 4,
+    "ama": 16,
+    "tcl": null,
+    "die": false,
+    "dii": false,
+    "din": 0,
+    "la1": 16,
+    "la3": 16,
+    "di1": false,
+    "pgr": false,
+    "pdi": false,
+    "ufe": false,
+    "ufm": 0,
+    "ufa": 49.79999924,
+    "ufs": 49,
+    "uve": false,
+    "uvt": 184,
+    "uvs": 3000,
+    "clp": [
+        6,
+        8,
+        10,
+        16
+    ],
+    "bac": 3,
+    "sdp": 2,
+    "bar": 3,
+    "lbp": null,
+    "amp": 6,
+    "fna": "go-e Wallbox",
+    "isgo": false,
+    "aus": false,
+    "rdbs": 0,
+    "rdes": 0,
+    "rdbf": 0,
+    "rdef": 0,
+    "rdre": 0,
+    "rdpl": 0,
+    "rdbse": null,
+    "rdese": null,
+    "rdbfe": null,
+    "rdefe": null,
+    "rdree": null,
+    "rdple": null,
+    "gmtr": 60,
+    "gsa": null,
+    "rsa": null,
+    "rmiv": 207,
+    "rmav": 250.6999969,
+    "rmif": 49.90000153,
+    "rmaf": 50.09999847,
+    "rsre": false,
+    "rsrr": 0.159999996,
+    "cid": "#0000FF",
+    "cwc": "#FFFF00",
+    "cch": "#00FFFF",
+    "cfi": "#00FF00",
+    "ust": 0,
+    "lck": 0,
+    "sch_week": {
+        "control": 0,
+        "ranges": [
+            {
+                "begin": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                },
+                "end": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                }
+            },
+            {
+                "begin": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                },
+                "end": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                }
+            }
+        ]
+    },
+    "sch_satur": {
+        "control": 0,
+        "ranges": [
+            {
+                "begin": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                },
+                "end": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                }
+            },
+            {
+                "begin": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                },
+                "end": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                }
+            }
+        ]
+    },
+    "sch_sund": {
+        "control": 0,
+        "ranges": [
+            {
+                "begin": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                },
+                "end": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                }
+            },
+            {
+                "begin": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                },
+                "end": {
+                    "hour": 0,
+                    "minute": 0,
+                    "second": 0
+                }
+            }
+        ]
+    },
+    "nmo": false,
+    "fsp": false,
+    "acs": 0,
+    "frc": 0,
+    "rbc": 20,
+    "rbt": 84885307,
+    "car": 4,
+    "err": 0,
+    "cbl": 20,
+    "pha": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+    ],
+    "wh": 3086.443322,
+    "whs": 2911.260715,
+    "whb": 175.2792285,
+    "whg": 0,
+    "who": -0.096621931,
+    "trx": null,
+    "evt": null,
+    "fwv": "59.4",
+    "oem": "go-e",
+    "dfam": "goecharger",
+    "typ": "go-eCharger_V4",
+    "lse": false,
+    "cdi": {
+        "type": 1,
+        "value": 3740228
+    },
+    "lccfi": 73685965,
+    "lccfc": 82293692,
+    "lcctc": 81913182,
+    "tma": [
+        29,
+        25
+    ],
+    "amt": 32,
+    "nrg": [
+        229.3999939,
+        228.7799988,
+        231.5700073,
+        1.860000014,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "modelStatus": 17,
+    "lmsc": 82291159,
+    "mca": 6,
+    "awc": 1377,
+    "awp": 2,
+    "awcp": {
+        "start": 1779105600,
+        "end": 1779109200,
+        "marketprice": 9.677000046
+    },
+    "frm": 2,
+    "fup": true,
+    "awe": false,
+    "fst": 2500,
+    "fmt": 300000,
+    "att": 21600,
+    "ate": 18000,
+    "ara": true,
+    "acp": true,
+    "cco": 18,
+    "esk": false,
+    "fzf": false,
+    "pgt": 0,
+    "sh": 200,
+    "psh": 500,
+    "po": -300,
+    "zfo": 200,
+    "psmd": 10000,
+    "sumd": 10000,
+    "mpwst": 120000,
+    "mptwt": 600000,
+    "mmp": 0,
+    "tlf": false,
+    "tls": null,
+    "lpc": null,
+    "atp": null,
+    "lpsc": 84870965,
+    "inva": 84880824,
+    "pgrid": 0,
+    "ppv": 2205,
+    "pakku": -365,
+    "dsrc": "custom",
+    "deltap": 417,
+    "pnp": 3,
+    "deltaa": -2.214492798,
+    "pvopt_averagePGrid": 0,
+    "pvopt_averagePPv": 2238,
+    "pvopt_averagePAkku": -417,
+    "ct": "default",
+    "mci": 0,
+    "mcpd": 0,
+    "mcpea": null,
+    "su": false,
+    "sua": false,
+    "var": 11,
+    "loe": false,
+    "log": "",
+    "lop": 50,
+    "lopr": false,
+    "lof": 0,
+    "map": [
+        1,
+        2,
+        3
+    ],
+    "upo": false,
+    "pwm": 1,
+    "lfspt": 81889578,
+    "fsptws": 81706581,
+    "spl3": 4200,
+    "psm": 0,
+    "csd": false,
+    "ocu": [
+        "60.5 BETA",
+        "60.4 BETA",
+        "60.3 BETA",
+        "60.2 BETA",
+        "60.1 BETA",
+        "60.0 BETA",
+        "59.4",
+        "57.1 OUTDATED",
+        "V 57.0 OUTDATED",
+        "V 56.11 OUTDATED",
+        "V 56.9 OUTDATED",
+        "V 56.8 OUTDATED",
+        "V 56.2 OUTDATED",
+        "V 56.1 OUTDATED",
+        "V 055.8 OUTDATED",
+        "V 055.7 OUTDATED",
+        "V 055.5 OUTDATED",
+        "V 055.0 OUTDATED"
+    ],
+    "cwe": true,
+    "clea": 43143662,
+    "cle": "esp_transport_write() returned 0, transport_error=ESP_OK, tls_error_code=0, tls_flags=0, errno=0",
+    "cus": 3,
+    "ffb": 0,
+    "fhz": 50.00400162,
+    "loa": null,
+    "lot": {
+        "amp": 32,
+        "dyn": 32,
+        "sta": 32,
+        "ts": 0
+    },
+    "loty": 0,
+    "cards": [
+        {
+            "name": "n/a",
+            "energy": 0,
+            "cardId": true
+        },
+        {
+            "name": "n/a",
+            "energy": 0,
+            "cardId": false
+        },
+        {
+            "name": "n/a",
+            "energy": 0,
+            "cardId": false
+        },
+        {
+            "name": "n/a",
+            "energy": 0,
+            "cardId": false
+        },
+        {
+            "name": "n/a",
+            "energy": 0,
+            "cardId": false
+        },
+        {
+            "name": "n/a",
+            "energy": 0,
+            "cardId": false
+        },
+        {
+            "name": "n/a",
+            "energy": 0,
+            "cardId": false
+        },
+        {
+            "name": "n/a",
+            "energy": 0,
+            "cardId": false
+        },
+        {
+            "name": "n/a",
+            "energy": 0,
+            "cardId": false
+        },
+        {
+            "name": "n/a",
+            "energy": 0,
+            "cardId": false
+        }
+    ],
+    "smd": null,
+    "men": false,
+    "msp": 502,
+    "msb": false,
+    "msr": true,
+    "data": "{\"i\":120,\"url\":\"https://data.example.io/data_ng?e=REDACTED_TOKEN\"}",
+    "dll": "https://data.example.io/export?e=REDACTED_TOKEN",
+    "mtp": "go-eCharger/REDACTED/",
+    "mht": "homeassistant/",
+    "mhe": true,
+    "mqg": true,
+    "mqcn": false,
+    "mqss": false,
+    "mcs": true,
+    "mcc": true,
+    "mcca": 15628388,
+    "mlr": "error_type=TCP_TRANSPORT connect_return_code=ACCEPTED",
+    "mlra": 15613379,
+    "ocppe": false,
+    "ocppu": "",
+    "ocppf": null,
+    "ocppg": true,
+    "ocppcn": false,
+    "ocppss": false,
+    "ocpps": false,
+    "ocppc": false,
+    "ocppca": null,
+    "ocppa": false,
+    "ocppaa": null,
+    "ocppti": null,
+    "ocppte": null,
+    "ocppao": false,
+    "ocpplo": true,
+    "ocppla": true,
+    "orsch": false,
+    "ocpph": 3600,
+    "ocppi": 60,
+    "ocppai": 0,
+    "ocppd": "no-card",
+    "ocppr": false,
+    "ocppcm": 0,
+    "ocpplea": null,
+    "ocpple": null,
+    "ocpprl": false,
+    "ocppcs": 3,
+    "ocppmp": null,
+    "ocppdp": null,
+    "ocpptp": null,
+    "rde": true,
+    "lri": null,
+    "tsi": null,
+    "lrc": null,
+    "lrr": null,
+    "cmse": false,
+    "cmmr": 20,
+    "cms": "_go-e_controller",
+    "cmp": "_tcp",
+    "pco": "",
+    "lcs": 0,
+    "csa": false,
+    "ctrls": [
+        [
+            "00000000",
+            1,
+            true,
+            false,
+            null
+        ]
+    ],
+    "ccd": null,
+    "emx": 0
+}
